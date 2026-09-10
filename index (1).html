@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#170813" />
+  <title>For My Duggu ❤️</title>
+  <style>
+    :root {
+      --ink: #fff8fb;
+      --pink: #ff87b7;
+      --rose: #fa4e91;
+      --wine: #350c2c;
+      --night: #130710;
+      --glass: rgba(255, 255, 255, .1);
+      --line: rgba(255, 255, 255, .22);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { min-height: 100%; }
+    body {
+      margin: 0;
+      overflow: hidden;
+      color: var(--ink);
+      background: var(--night);
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    button, a { font: inherit; }
+    button { color: inherit; }
+
+    #heart-field {
+      position: fixed;
+      inset: 0;
+      z-index: 5;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .heart {
+      position: absolute;
+      bottom: -15vh;
+      color: var(--pink);
+      opacity: .7;
+      animation: float-up linear forwards;
+      filter: drop-shadow(0 0 10px rgba(255, 95, 157, .55));
+    }
+    @keyframes float-up {
+      0% { transform: translate3d(0, 0, 0) rotate(0deg) scale(.7); opacity: 0; }
+      12% { opacity: .75; }
+      100% { transform: translate3d(var(--drift), -125vh, 0) rotate(100deg) scale(1.2); opacity: 0; }
+    }
+
+    .orb {
+      position: fixed;
+      z-index: 0;
+      width: min(48vw, 600px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      filter: blur(15px);
+      opacity: .45;
+      animation: breathe 9s ease-in-out infinite alternate;
+    }
+    .orb.one { background: #a52870; left: -17%; top: -15%; }
+    .orb.two { background: #f04a8a; right: -22%; bottom: -25%; animation-delay: -4s; }
+    @keyframes breathe { to { transform: scale(1.3) translate(5%, 5%); opacity: .62; } }
+
+    .app {
+      position: relative;
+      min-height: 100svh;
+      isolation: isolate;
+    }
+    .progress-wrap {
+      position: fixed;
+      z-index: 20;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: rgba(255,255,255,.12);
+    }
+    .progress {
+      height: 100%;
+      width: 25%;
+      background: linear-gradient(90deg, var(--rose), #ffd0e2);
+      box-shadow: 0 0 16px var(--rose);
+      transition: width .7s cubic-bezier(.22, 1, .36, 1);
+    }
+    .counter {
+      position: fixed;
+      z-index: 20;
+      right: clamp(1rem, 4vw, 3rem);
+      top: 1.2rem;
+      letter-spacing: .18em;
+      font: 600 .68rem/1 Arial, sans-serif;
+      color: rgba(255,255,255,.75);
+    }
+
+    main { min-height: 100svh; }
+    .slide {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      padding: clamp(4.5rem, 9vh, 7rem) clamp(1.1rem, 5vw, 5rem) clamp(6.5rem, 12vh, 8.5rem);
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(1.06);
+      transition: opacity .75s ease, transform 1s cubic-bezier(.2,.8,.2,1);
+      overflow-y: auto;
+    }
+    .slide.active {
+      z-index: 2;
+      opacity: 1;
+      pointer-events: auto;
+      transform: scale(1);
+    }
+    .slide::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(circle at 50% 110%, rgba(243, 61, 137, .29), transparent 40%),
+        linear-gradient(125deg, rgba(16,4,12,.87), rgba(60,12,45,.53));
+    }
+
+    .hero-card, .surprise-card {
+      width: min(800px, 100%);
+      text-align: center;
+      animation: rise-in 1.2s .1s both cubic-bezier(.22, 1, .36, 1);
+    }
+    @keyframes rise-in {
+      from { opacity: 0; transform: translateY(36px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .eyebrow {
+      margin: 0 0 1.2rem;
+      color: #ffc3dc;
+      font: 600 clamp(.65rem, 1.8vw, .8rem)/1.3 Arial, sans-serif;
+      letter-spacing: .32em;
+      text-transform: uppercase;
+    }
+    h1, h2 { margin: 0; font-weight: 400; line-height: .98; }
+    h1 { font-size: clamp(3.5rem, 11vw, 8rem); letter-spacing: -.06em; }
+    h2 { font-size: clamp(2.7rem, 7vw, 5.5rem); letter-spacing: -.055em; }
+    .script {
+      display: block;
+      margin: .1em 0 .45em;
+      color: #ffb0cf;
+      font-size: .38em;
+      font-style: italic;
+      letter-spacing: -.03em;
+    }
+    .lead, .message {
+      max-width: 38rem;
+      margin: 1.7rem auto 0;
+      color: rgba(255,248,251,.84);
+      font-size: clamp(1.05rem, 2.4vw, 1.35rem);
+      line-height: 1.7;
+    }
+    .lead { max-width: 31rem; }
+    .cta, .nav-btn {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.1);
+      backdrop-filter: blur(12px);
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform .25s ease, background .25s ease, border-color .25s ease;
+    }
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: .65rem;
+      margin-top: 2.1rem;
+      padding: .95rem 1.35rem;
+      border-radius: 999px;
+      color: white;
+      font: 700 .75rem/1 Arial, sans-serif;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .cta:hover, .nav-btn:hover { transform: translateY(-3px); background: rgba(255,255,255,.2); border-color: rgba(255,255,255,.6); }
+
+    .memory-layout {
+      width: min(1080px, 100%);
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(260px, .95fr);
+      align-items: center;
+      gap: clamp(1.5rem, 6vw, 6rem);
+    }
+    .memory-layout.reverse { grid-template-columns: minmax(260px, .95fr) minmax(0, 1.05fr); }
+    .memory-layout.reverse .photo-shell { order: 2; }
+    .photo-shell {
+      position: relative;
+      width: min(100%, 430px);
+      justify-self: center;
+      animation: photo-arrive 1s .08s both cubic-bezier(.22, 1, .36, 1);
+    }
+    @keyframes photo-arrive { from { opacity: 0; transform: rotate(-4deg) translateY(35px); } to { opacity: 1; transform: rotate(0) translateY(0); } }
+    .photo-shell::before, .photo-shell::after {
+      content: "";
+      position: absolute;
+      inset: 5%;
+      border: 1px solid rgba(255, 211, 232, .34);
+      transform: rotate(5deg);
+      z-index: -1;
+    }
+    .photo-shell::after { transform: rotate(-7deg); inset: 9%; }
+    .photo-frame {
+      position: relative;
+      overflow: hidden;
+      min-height: min(62vh, 570px);
+      aspect-ratio: 4 / 5;
+      padding: .55rem;
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 3px;
+      background: linear-gradient(145deg, #fff5fa, #f5a7c8);
+      box-shadow: 0 28px 65px rgba(0,0,0,.45);
+    }
+    .photo-frame img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: inherit;
+      object-fit: cover;
+      background: linear-gradient(135deg, #9b2b66, #311027);
+      filter: saturate(1.08) contrast(1.03);
+      transition: transform 1.2s ease;
+    }
+    .active .photo-frame img { transform: scale(1.035); }
+    .photo-note {
+      position: absolute;
+      right: .7rem;
+      bottom: .7rem;
+      padding: .45rem .65rem;
+      color: #6f1545;
+      background: rgba(255,247,251,.88);
+      box-shadow: 0 5px 18px rgba(0,0,0,.18);
+      font-size: .95rem;
+      font-style: italic;
+      transform: rotate(-3deg);
+    }
+    .memory-copy { animation: copy-arrive 1s .22s both cubic-bezier(.22, 1, .36, 1); }
+    @keyframes copy-arrive { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+    .memory-copy h2 { max-width: 10ch; }
+    .memory-copy .message { margin-left: 0; }
+    .birthday-line { max-width: 35rem; margin: 1.25rem 0 0; color: #ffc4dc; font-size: clamp(1rem, 2.1vw, 1.18rem); font-style: italic; line-height: 1.55; }
+    .memory-number { display: block; margin-bottom: 1rem; color: #ffc0d8; font: 700 .72rem/1 Arial, sans-serif; letter-spacing: .26em; }
+    .photo-fallback {
+      position: absolute;
+      inset: .55rem;
+      display: none;
+      place-items: center;
+      padding: 1.5rem;
+      text-align: center;
+      color: white;
+      background: linear-gradient(145deg, #782851, #21091c);
+      font: italic 1.15rem/1.5 Georgia, serif;
+    }
+    .photo-frame.missing .photo-fallback { display: grid; }
+    .photo-frame.missing img { visibility: hidden; }
+
+    .surprise-card {
+      padding: clamp(2rem, 7vw, 5rem) clamp(1.1rem, 5vw, 4rem);
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 30px;
+      background: radial-gradient(circle at 50% 0%, rgba(255,150,198,.26), transparent 45%), rgba(63,14,47,.43);
+      box-shadow: 0 30px 90px rgba(0,0,0,.35);
+    }
+    .surprise-card h2 { font-size: clamp(3rem, 8.3vw, 6.5rem); }
+    .surprise-card h2 span { display: block; color: #ffaccd; font-size: .47em; font-style: italic; }
+    .now-playing { margin: 2rem 0 0; color: rgba(255,248,251,.68); font: italic .92rem/1.5 Georgia, serif; }
+    .autoplay-music { position: fixed; width: 1px; height: 1px; right: 0; bottom: 0; border: 0; opacity: 0; pointer-events: none; }
+    .gift-wrap { margin: 2rem auto 0; }
+    .gift-box { position: relative; width: 105px; height: 88px; padding: 0; border: 0; border-radius: 9px; background: linear-gradient(135deg, #ed4c93, #a9185d); box-shadow: 0 16px 34px rgba(0,0,0,.35); cursor: pointer; transform: translateZ(0); transition: transform .35s ease; }
+    .gift-box::before { content: ''; position: absolute; top: 0; bottom: 0; left: 43px; width: 19px; background: #ffd9e8; box-shadow: 0 0 15px rgba(255,255,255,.45); }
+    .gift-box::after { content: '♥'; position: absolute; left: 50%; top: -34px; width: 70px; height: 32px; padding-top: 5px; border-radius: 7px 7px 2px 2px; color: #ae195f; background: #ffb9d5; font-size: 1.2rem; transform: translateX(-50%); box-shadow: 0 7px 10px rgba(0,0,0,.18); transition: transform .55s cubic-bezier(.22,1,.36,1); }
+    .gift-box:hover { transform: translateY(-5px) rotate(-2deg); }
+    .gift-wrap.opened .gift-box::after { transform: translateX(-50%) translateY(-40px) rotate(-15deg); }
+    .gift-note { max-width: 33rem; max-height: 0; margin: 0 auto; overflow: hidden; opacity: 0; transition: max-height .75s ease, opacity .5s ease, margin .5s ease; }
+    .gift-wrap.opened .gift-note { max-height: 260px; margin-top: 1.45rem; opacity: 1; }
+    .gift-note h3 { margin: 0; color: #ffc6dd; font-size: clamp(1.25rem, 3vw, 1.7rem); font-weight: 400; }
+    .gift-note p { margin: .65rem 0 0; color: rgba(255,248,251,.88); font-size: 1.05rem; line-height: 1.6; }
+
+    .nav {
+      position: fixed;
+      z-index: 25;
+      bottom: max(1.2rem, env(safe-area-inset-bottom));
+      left: 50%;
+      display: flex;
+      gap: .65rem;
+      transform: translateX(-50%);
+    }
+    .nav-btn {
+      min-width: 7.4rem;
+      padding: .9rem 1.1rem;
+      border-radius: 999px;
+      font: 700 .72rem/1 Arial, sans-serif;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .nav-btn:disabled { opacity: .35; cursor: not-allowed; transform: none; }
+    .dots { position: fixed; z-index: 25; left: clamp(1rem, 4vw, 3rem); top: 50%; display: grid; gap: .65rem; transform: translateY(-50%); }
+    .dot { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 50%; background: rgba(255,255,255,.35); cursor: pointer; transition: transform .25s, background .25s; }
+    .dot.active { background: #fff; transform: scale(1.6); }
+    .hint { margin: 2.2rem 0 0; color: rgba(255,255,255,.6); font: .71rem/1.4 Arial, sans-serif; letter-spacing: .12em; text-transform: uppercase; }
+
+    @media (max-width: 720px) {
+      .slide { padding-top: 4.5rem; }
+      .memory-layout, .memory-layout.reverse { grid-template-columns: 1fr; max-width: 430px; gap: 1.4rem; }
+      .memory-layout.reverse .photo-shell { order: 0; }
+      .photo-frame { min-height: 44vh; max-height: 52vh; }
+      .memory-copy { text-align: center; }
+      .memory-copy h2 { margin: 0 auto; }
+      .memory-copy .message { margin-left: auto; }
+      .dots { display: none; }
+      .counter { top: .95rem; }
+      .nav-btn { min-width: 6.5rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div id="heart-field" aria-hidden="true"></div>
+  <div class="orb one" aria-hidden="true"></div><div class="orb two" aria-hidden="true"></div>
+  <div class="app">
+    <div class="progress-wrap"><div class="progress" id="progress"></div></div>
+    <div class="counter" id="counter" aria-live="polite">01 / 04</div>
+    <main>
+      <section class="slide active" aria-label="Welcome" data-slide="0">
+        <div class="hero-card">
+          <p class="eyebrow">A little universe made for you</p>
+          <h1>Happy Birthday<span class="script">my Duggu, my Buggu</span>Jaan <span aria-hidden="true">♥</span></h1>
+          <p class="lead">For my Duggu, Buggu—my sweetest Jaan. A few beautiful moments and all the love I could fit into one little surprise.</p>
+          <button class="cta" type="button" data-next>Open your memories <span aria-hidden="true">→</span></button>
+          <p class="hint">Use the arrows, buttons, or swipe</p>
+        </div>
+      </section>
+
+      <section class="slide" aria-label="Memory one" data-slide="1">
+        <div class="memory-layout">
+          <div class="photo-shell">
+            <div class="photo-frame">
+              <img src="memory-01.jpg" alt="A treasured memory with Duggu" />
+              <div class="photo-fallback">Your first photo memory belongs here.</div>
+              <span class="photo-note">one of my favourites ♥</span>
+            </div>
+          </div>
+          <div class="memory-copy">
+            <span class="memory-number">MEMORY 01</span>
+            <h2>My favourite kind of magic.</h2>
+            <p class="message">“Tumhari ek chhoti si smile, meri poori duniya ko soft aur beautiful bana deti hai.”</p>
+            <p class="birthday-line">Happy Birthday, meri jaan—tum sirf pretty nahi, meri favourite feeling ho. ♥</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" aria-label="Memory two" data-slide="2">
+        <div class="memory-layout reverse">
+          <div class="photo-shell">
+            <div class="photo-frame">
+              <img src="memory-02.jpg" alt="Another treasured memory with Duggu" />
+              <div class="photo-fallback">Your second photo memory belongs here.</div>
+              <span class="photo-note">forever looks lovely on you ♥</span>
+            </div>
+          </div>
+          <div class="memory-copy">
+            <span class="memory-number">MEMORY 02</span>
+            <h2>Still choosing you.</h2>
+            <p class="message">“Tum paas ho toh har normal moment bhi little fairytale jaisa lagta hai.”</p>
+            <p class="birthday-line">Happy Birthday, meri Duggu—tumhari khoobsurti se bhi zyada pyaara tumhara dil hai. ♥</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" aria-label="Birthday surprise" data-slide="3">
+        <div class="surprise-card">
+          <p class="eyebrow">The final surprise</p>
+          <h2>Happy Birthday,<span>My Duggu, Buggu, Jaan ❤️</span></h2>
+          <p class="lead">Aaj ke din bas itna yaad rakhna: tum meri life ka woh beautiful chapter ho jise main har roz aur pyaar se padhna chahta hoon.</p>
+          <div class="gift-wrap" id="giftWrap">
+            <button class="gift-box" id="openGift" type="button" aria-label="Open your birthday gift" aria-expanded="false"></button>
+            <div class="gift-note" id="giftNote">
+              <h3>Ek chhota sa gift, meri sabse badi blessing ke liye.</h3>
+              <p>Mera gift hai ek promise: tumhari har smile ko celebrate karunga, tough days me tumhara haath pakadunga, aur har naye birthday par tumhe aur zyada special feel karaunga. I love you, Jaan. ♥</p>
+            </div>
+          </div>
+          <p class="now-playing">Open your little birthday gift. ♥</p>
+        </div>
+      </section>
+    </main>
+    <div class="dots" aria-label="Slide navigation" role="tablist"></div>
+    <nav class="nav" aria-label="Memory navigation">
+      <button class="nav-btn" id="prev" type="button">← Previous</button>
+      <button class="nav-btn" id="next" type="button">Next →</button>
+    </nav>
+  </div>
+  <iframe class="autoplay-music" title="Tum Ho — official YouTube audio" src="https://www.youtube.com/embed/gkCKTuR-ECI?autoplay=1&amp;mute=0&amp;playsinline=1&amp;rel=0" allow="autoplay; encrypted-media" aria-hidden="true"></iframe>
+  <script>
+    (() => {
+      const additionalMemories = [
+        ['memory-03.jpg', 'A little adventure, a lot of you.', '“Jahan tum ho, wahan ordinary jagah bhi meri favourite destination ban jaati hai.”', 'you, in your own beautiful world ♥', 'Happy Birthday, meri pyari—tumhari presence hi meri life ka best view hai. ♥'],
+['memory-04.jpg', 'That smile I never get tired of.', '“Tumhari hasi me kuch toh magic hai, ek second me saari tension chura leti hai.”', 'my happy place ♥', 'Happy Birthday, beautiful—tumhari smile is the prettiest thing I know. ♥'],
+['memory-05.jpeg', 'Beautiful, simply because it is you.', '“Kisi filter ki zaroorat nahi, kyunki tum already meri eyes ka favourite picture ho.”', 'the prettiest pause ♥', 'Happy Birthday, meri gorgeous girl—tum natural beauty ka definition ho. ♥'],
+['memory-06.jpeg', 'You turn every ride into a memory.', '“Tere saath raaste chhote lagte hain, aur har journey me thoda sa pyaar extra hota hai.”', 'going places, loving you ♥', 'Happy Birthday, cutie—tere saath har safar beautiful lagta hai. ♥'],
+['memory-07.jpeg', 'Soft light, softer heart.', '“Tumhari aankhon ki warmth, subah ki sunlight se bhi zyada soothing hai.”', 'my sunshine girl ♥', 'Happy Birthday, sunshine—tum meri life ki sabse soft aur lovely roshni ho. ♥'],
+['memory-08.jpeg', 'A wave from my favourite person.', '“Tumhara ek hello bhi mera mood reset kar deta hai, jaise dil ko ghar mil gaya ho.”', 'hello, gorgeous ♥', 'Happy Birthday, meri jaan—tum har angle se adorable aur har mood me special ho. ♥'],
+['memory-09.jpeg', 'Sunshine looks good on you.', '“Dhoop bhi thodi jealous hoti hogi, kyunki tum usse zyada glow karti ho.”', 'forever glowing ♥', 'Happy Birthday, queen—tumhari confidence aur smile dono priceless hain. ♥'],
+['memory-10.jpeg', 'Our silly little universe.', '“Tumhari silly si harkatein hi meri favourite memories ban jaati hain, bina try kiye.”', 'us, being us ♥', 'Happy Birthday, funny girl—tum meri life ki cutest chaos ho. ♥'],
+['memory-11.jpeg', 'Proof that you make me smile.', '“Hum dono ka pagalpan hi toh hai jo normal din ko bhi unforgettable bana deta hai.”', 'cute chaos ♥', 'Happy Birthday, meri smile machine—tum hasti ho toh meri duniya hasti hai. ♥'],
+['memory-12.jpeg', 'A reflection I could look at forever.', '“Mirror me bhi tum bas reflection nahi, meri favourite shayari jaisi lagti ho.”', 'still falling for you ♥', 'Happy Birthday, meri pretty soul—tum beauty aur grace ka perfect combo ho. ♥'],
+['memory-13.jpeg', 'My hand, your hand, our story.', '“Tumhara haath pakad kar lagta hai jaise life ne mujhe apni best gift de di ho.”', 'always, hand in hand ♥', 'Happy Birthday, meri love—tumhare saath wala har kal meri favourite future hai. ♥']
+      const surpriseSlide = document.querySelector('[aria-label="Birthday surprise"]');
+      additionalMemories.forEach(([image, title, message, note, birthdayWish], offset) => {
+        const number = offset + 3;
+        const reverse = number % 2 === 0 ? ' reverse' : '';
+        surpriseSlide.insertAdjacentHTML('beforebegin', `
+          <section class="slide" aria-label="Memory ${number}">
+            <div class="memory-layout${reverse}">
+              <div class="photo-shell"><div class="photo-frame">
+                <img src="${image}" alt="A treasured memory with Duggu" />
+                <div class="photo-fallback">A cherished memory of you belongs here.</div>
+                <span class="photo-note">${note}</span>
+              </div></div>
+              <div class="memory-copy">
+                <span class="memory-number">MEMORY ${String(number).padStart(2, '0')}</span>
+                <h2>${title}</h2>
+                <p class="message">${message}</p>
+                <p class="birthday-line">${birthdayWish}</p>
+              </div>
+            </div>
+          </section>`);
+      });
+
+      const slides = [...document.querySelectorAll('.slide')];
+      const dotHost = document.querySelector('.dots');
+      const dots = slides.map((slide, index) => {
+        const dot = document.createElement('button');
+        dot.className = `dot${index === 0 ? ' active' : ''}`;
+        dot.type = 'button';
+        dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
+        dot.setAttribute('aria-current', String(index === 0));
+        dotHost.appendChild(dot);
+        return dot;
+      });
+      const counter = document.querySelector('#counter');
+      const progress = document.querySelector('#progress');
+      const prev = document.querySelector('#prev');
+      const next = document.querySelector('#next');
+      let current = 0;
+      let touchStart = 0;
+
+      function show(index) {
+        current = Math.max(0, Math.min(index, slides.length - 1));
+        slides.forEach((slide, i) => slide.classList.toggle('active', i === current));
+        dots.forEach((dot, i) => { dot.classList.toggle('active', i === current); dot.setAttribute('aria-current', String(i === current)); });
+        counter.textContent = String(current + 1).padStart(2, '0') + ' / ' + String(slides.length).padStart(2, '0');
+        progress.style.width = ((current + 1) / slides.length * 100) + '%';
+        prev.disabled = current === 0;
+        next.disabled = current === slides.length - 1;
+      }
+      document.querySelectorAll('[data-next]').forEach(button => button.addEventListener('click', () => show(current + 1)));
+      prev.addEventListener('click', () => show(current - 1));
+      next.addEventListener('click', () => show(current + 1));
+      dots.forEach((dot, i) => dot.addEventListener('click', () => show(i)));
+      document.addEventListener('keydown', event => {
+        if (event.key === 'ArrowRight') show(current + 1);
+        if (event.key === 'ArrowLeft') show(current - 1);
+      });
+      document.addEventListener('touchstart', event => { touchStart = event.changedTouches[0].screenX; }, { passive: true });
+      document.addEventListener('touchend', event => {
+        const distance = event.changedTouches[0].screenX - touchStart;
+        if (Math.abs(distance) > 55) show(current + (distance < 0 ? 1 : -1));
+      }, { passive: true });
+      document.querySelectorAll('.photo-frame img').forEach(image => image.addEventListener('error', () => image.closest('.photo-frame').classList.add('missing')));
+      const giftWrap = document.querySelector('#giftWrap');
+      const openGift = document.querySelector('#openGift');
+      openGift.addEventListener('click', () => {
+        const opened = giftWrap.classList.toggle('opened');
+        openGift.setAttribute('aria-expanded', String(opened));
+      });
+
+      const hearts = document.querySelector('#heart-field');
+      function addHeart() {
+        const heart = document.createElement('span');
+        heart.className = 'heart';
+        heart.textContent = Math.random() > .3 ? '♥' : '♡';
+        heart.style.left = (Math.random() * 100) + 'vw';
+        heart.style.fontSize = (10 + Math.random() * 18) + 'px';
+        heart.style.setProperty('--drift', ((Math.random() - .5) * 20) + 'vw');
+        heart.style.animationDuration = (7 + Math.random() * 7) + 's';
+        hearts.appendChild(heart);
+        heart.addEventListener('animationend', () => heart.remove());
+      }
+      setInterval(addHeart, 700);
+      for (let i = 0; i < 10; i++) setTimeout(addHeart, i * 180);
+      show(0);
+    })();
+  </script>
+</body>
+</html>
