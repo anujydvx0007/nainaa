@@ -321,6 +321,39 @@
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
     }
+    .music-player {
+  position: fixed;
+  right: 1.2rem;
+  bottom: 1.2rem;
+  z-index: 40;
+}
+
+.music-player iframe {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+  border: 0;
+}
+
+.music-btn {
+  border: 1px solid rgba(255,255,255,.28);
+  background: rgba(80,20,60,.78);
+  color: #fff;
+  padding: .8rem 1.05rem;
+  border-radius: 999px;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 10px 28px rgba(0,0,0,.25);
+  font: 700 .72rem/1 Arial, sans-serif;
+  letter-spacing: .08em;
+}
+
+.music-btn:hover {
+  transform: translateY(-3px);
+  background: rgba(255,255,255,.2);
+}
   </style>
 </head>
 <body>
@@ -365,7 +398,18 @@
               <img src="memory-02.jpg" alt="Another treasured memory with Duggu" />
               <div class="photo-fallback">Your second photo memory belongs here.</div>
               <span class="photo-note">forever looks lovely on you ♥</span>
-            </div>
+            <div class="music-player" aria-label="Music player">
+  <iframe
+    id="youtubePlayer"
+    src="https://www.youtube.com/embed/72zKTf8NoMc?enablejsapi=1&playsinline=1&rel=0"
+    allow="autoplay; encrypted-media"
+    title="Tum Ko - Rockstar">
+  </iframe>
+
+  <button id="musicBtn" class="music-btn" type="button" aria-pressed="false">
+    🎵 Listen Nainaa
+  </button>
+</div>
           </div>
           <div class="memory-copy">
             <span class="memory-number">MEMORY 02</span>
@@ -385,7 +429,7 @@
             <button class="gift-box" id="openGift" type="button" aria-label="Open your birthday gift" aria-expanded="false"></button>
             <div class="gift-note" id="giftNote">
               <h3>Ek chhota sa gift, meri sabse badi blessing ke liye.</h3>
-              <p>Mera gift hai ek promise: tumhari har smile ko celebrate karunga, tough days me tumhara haath pakadunga, aur har naye birthday par tumhe aur zyada special feel karaunga. I love you, Jaan. ♥</p>
+              <p>Mera gift hai ek promise: tumhari har smile ko celebrate karunga tough days me tumhara haath pakadunga. I love you/buguu/ Jaan. ♥</p>
             </div>
           </div>
           <p class="now-playing">Open your little birthday gift. ♥</p>
@@ -398,7 +442,18 @@
       <button class="nav-btn" id="next" type="button">Next →</button>
     </nav>
   </div>
-  <iframe class="autoplay-music" title="Tum Ho — official YouTube audio" src="https://www.youtube.com/embed/gkCKTuR-ECI?autoplay=1&amp;mute=0&amp;playsinline=1&amp;rel=0" allow="autoplay; encrypted-media" aria-hidden="true"></iframe>
+ <div class="music-player" aria-label="Music player">
+  <iframe
+    id="youtubePlayer"
+    src="https://www.youtube.com/embed/72zKTf8NoMc?enablejsapi=1&amp;playsinline=1&amp;rel=0"
+    allow="autoplay; encrypted-media"
+    title="Tum Ko - Rockstar">
+  </iframe>
+
+  <button id="musicBtn" class="music-btn" type="button" aria-pressed="false">
+    🎵 Play Music
+  </button>
+</div>
   <script>
     (() => {
       const additionalMemories = [
@@ -432,6 +487,34 @@
                 <p class="message">${message}</p>
                 <p class="birthday-line">${birthdayWish}</p>
               </div>
+              const musicBtn = document.querySelector('#musicBtn');
+const youtubePlayer = document.querySelector('#youtubePlayer');
+
+let musicPlaying = false;
+
+musicBtn.addEventListener('click', () => {
+  const command = musicPlaying ? 'pauseVideo' : 'playVideo';
+
+  youtubePlayer.contentWindow.postMessage(
+    JSON.stringify({
+      event: 'command',
+      func: command,
+      args: []
+    }),
+    '*'
+  );
+
+  musicPlaying = !musicPlaying;
+
+  musicBtn.textContent = musicPlaying
+    ? '⏸ Pause Music'
+    : '🎵 Play Music';
+
+  musicBtn.setAttribute(
+    'aria-pressed',
+    String(musicPlaying)
+  );
+});
             </div>
           </section>`);
       });
@@ -477,6 +560,34 @@
         if (Math.abs(distance) > 55) show(current + (distance < 0 ? 1 : -1));
       }, { passive: true });
       document.querySelectorAll('.photo-frame img').forEach(image => image.addEventListener('error', () => image.closest('.photo-frame').classList.add('missing')));
+      const musicBtn = document.querySelector('#musicBtn');
+const youtubePlayer = document.querySelector('#youtubePlayer');
+
+let musicPlaying = false;
+
+musicBtn.addEventListener('click', () => {
+  const command = musicPlaying ? 'pauseVideo' : 'playVideo';
+
+  youtubePlayer.contentWindow.postMessage(
+    JSON.stringify({
+      event: 'command',
+      func: command,
+      args: []
+    }),
+    '*'
+  );
+
+  musicPlaying = !musicPlaying;
+
+  musicBtn.textContent = musicPlaying
+    ? '⏸ Pause Music'
+    : '🎵 Listen Nainaa';
+
+  musicBtn.setAttribute(
+    'aria-pressed',
+    String(musicPlaying)
+  );
+});
       const giftWrap = document.querySelector('#giftWrap');
       const openGift = document.querySelector('#openGift');
       openGift.addEventListener('click', () => {
