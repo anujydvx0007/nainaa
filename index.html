@@ -344,7 +344,7 @@
         <div class="memory-layout">
           <div class="photo-shell">
             <div class="photo-frame">
-              <img src="assets/memory-01.jpg" alt="A treasured memory with Duggu" />
+              <img src="memory-01.jpg" alt="A treasured memory with Duggu" />
               <div class="photo-fallback">Your first photo memory belongs here.</div>
               <span class="photo-note">one of my favourites ♥</span>
             </div>
@@ -362,7 +362,7 @@
         <div class="memory-layout reverse">
           <div class="photo-shell">
             <div class="photo-frame">
-              <img src="assets/memory-02.jpg" alt="Another treasured memory with Duggu" />
+              <img src="memory-02.jpg" alt="Another treasured memory with Duggu" />
               <div class="photo-fallback">Your second photo memory belongs here.</div>
               <span class="photo-note">forever looks lovely on you ♥</span>
             </div>
@@ -402,18 +402,27 @@
   <script>
     (() => {
       const additionalMemories = [
-        ['assets/memory-03.jpg', 'A little adventure, a lot of you.', '“Jahan tum ho, wahan ordinary jagah bhi meri favourite destination ban jaati hai.”', 'you, in your own beautiful world ♥', 'Happy Birthday, meri pyari—tumhari presence hi meri life ka best view hai. ♥'],
-        ['assets/memory-04.jpg', 'That smile I never get tired of.', '“Tumhari hasi me kuch toh magic hai, ek second me saari tension chura leti hai.”', 'my happy place ♥', 'Happy Birthday, beautiful—tumhari smile is the prettiest thing I know. ♥'],
-        ['assets/memory-05.jpeg', 'Beautiful, simply because it is you.', '“Kisi filter ki zaroorat nahi, kyunki tum already meri eyes ka favourite picture ho.”', 'the prettiest pause ♥', 'Happy Birthday, meri gorgeous girl—tum natural beauty ka definition ho. ♥'],
-        ['assets/memory-06.jpeg', 'You turn every ride into a memory.', '“Tere saath raaste chhote lagte hain, aur har journey me thoda sa pyaar extra hota hai.”', 'going places, loving you ♥', 'Happy Birthday, cutie—tere saath har safar beautiful lagta hai. ♥'],
-        ['assets/memory-07.jpeg', 'Soft light, softer heart.', '“Tumhari aankhon ki warmth, subah ki sunlight se bhi zyada soothing hai.”', 'my sunshine girl ♥', 'Happy Birthday, sunshine—tum meri life ki sabse soft aur lovely roshni ho. ♥'],
-        ['assets/memory-08.jpeg', 'A wave from my favourite person.', '“Tumhara ek hello bhi mera mood reset kar deta hai, jaise dil ko ghar mil gaya ho.”', 'hello, gorgeous ♥', 'Happy Birthday, meri jaan—tum har angle se adorable aur har mood me special ho. ♥'],
-        ['assets/memory-09.jpeg', 'Sunshine looks good on you.', '“Dhoop bhi thodi jealous hoti hogi, kyunki tum usse zyada glow karti ho.”', 'forever glowing ♥', 'Happy Birthday, queen—tumhari confidence aur smile dono priceless hain. ♥'],
-        ['assets/memory-10.jpeg', 'Our silly little universe.', '“Tumhari silly si harkatein hi meri favourite memories ban jaati hain, bina try kiye.”', 'us, being us ♥', 'Happy Birthday, funny girl—tum meri life ki cutest chaos ho. ♥'],
-        ['assets/memory-11.jpeg', 'Proof that you make me smile.', '“Hum dono ka pagalpan hi toh hai jo normal din ko bhi unforgettable bana deta hai.”', 'cute chaos ♥', 'Happy Birthday, meri smile machine—tum hasti ho toh meri duniya hasti hai. ♥'],
-        ['assets/memory-12.jpeg', 'A reflection I could look at forever.', '“Mirror me bhi tum bas reflection nahi, meri favourite shayari jaisi lagti ho.”', 'still falling for you ♥', 'Happy Birthday, meri pretty soul—tum beauty aur grace ka perfect combo ho. ♥'],
-        ['assets/memory-13.jpeg', 'My hand, your hand, our story.', '“Tumhara haath pakad kar lagta hai jaise life ne mujhe apni best gift de di ho.”', 'always, hand in hand ♥', 'Happy Birthday, meri love—tumhare saath wala har kal meri favourite future hai. ♥']
-      ];
+        ['memory-03.jpg', 'A little adventure, a lot of you.', '“Jahan tum ho, wahan ordinary jagah bhi meri favourite destination ban jaati hai.”', 'you, in your own beautiful world ♥', 'Happy Birthday, meri pyari—tumhari presence hi meri life ka best view hai. ♥'],
+
+['memory-04.jpg', 'That smile I never get tired of.', '“Tumhari hasi me kuch toh magic hai, ek second me saari tension chura leti hai.”', 'my happy place ♥', 'Happy Birthday, beautiful—tumhari smile is the prettiest thing I know. ♥'],
+
+['memory-05.jpeg', 'Beautiful, simply because it is you.', '“Kisi filter ki zaroorat nahi, kyunki tum already meri eyes ka favourite picture ho.”', 'the prettiest pause ♥', 'Happy Birthday, meri gorgeous girl—tum natural beauty ka definition ho. ♥'],
+
+['memory-06.jpeg', 'You turn every ride into a memory.', '“Tere saath raaste chhote lagte hain, aur har journey me thoda sa pyaar extra hota hai.”', 'going places, loving you ♥', 'Happy Birthday, cutie—tere saath har safar beautiful lagta hai. ♥'],
+
+['memory-07.jpeg', 'Soft light, softer heart.', '“Tumhari aankhon ki warmth, subah ki sunlight se bhi zyada soothing hai.”', 'my sunshine girl ♥', 'Happy Birthday, sunshine—tum meri life ki sabse soft aur lovely roshni ho. ♥'],
+
+['memory-08.jpeg', 'A wave from my favourite person.', '“Tumhara ek hello bhi mera mood reset kar deta hai, jaise dil ko ghar mil gaya ho.”', 'hello, gorgeous ♥', 'Happy Birthday, meri jaan—tum har angle se adorable aur har mood me special ho. ♥'],
+
+['memory-09.jpeg', 'Sunshine looks good on you.', '“Dhoop bhi thodi jealous hoti hogi, kyunki tum usse zyada glow karti ho.”', 'forever glowing ♥', 'Happy Birthday, queen—tumhari confidence aur smile dono priceless hain. ♥'],
+
+['memory-10.jpeg', 'Our silly little universe.', '“Tumhari silly si harkatein hi meri favourite memories ban jaati hain, bina try kiye.”', 'us, being us ♥', 'Happy Birthday, funny girl—tum meri life ki cutest chaos ho. ♥'],
+
+['memory-11.jpeg', 'Proof that you make me smile.', '“Hum dono ka pagalpan hi toh hai jo normal din ko bhi unforgettable bana deta hai.”', 'cute chaos ♥', 'Happy Birthday, meri smile machine—tum hasti ho toh meri duniya hasti hai. ♥'],
+
+['memory-12.jpeg', 'A reflection I could look at forever.', '“Mirror me bhi tum bas reflection nahi, meri favourite shayari jaisi lagti ho.”', 'still falling for you ♥', 'Happy Birthday, meri pretty soul—tum beauty aur grace ka perfect combo ho. ♥'],
+
+['memory-13.jpeg', 'My hand, your hand, our story.', '“Tumhara haath pakad kar lagta hai jaise life ne mujhe apni best gift de di ho.”', 'always, hand in hand ♥', 'Happy Birthday, meri love—tumhare saath wala har kal meri favourite future hai. ♥']
       const surpriseSlide = document.querySelector('[aria-label="Birthday surprise"]');
       additionalMemories.forEach(([image, title, message, note, birthdayWish], offset) => {
         const number = offset + 3;
