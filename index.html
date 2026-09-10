@@ -432,7 +432,7 @@
  <div class="music-player" aria-label="Music player">
   <iframe
     id="youtubePlayer"
-    src="https://www.youtube.com/embed/72zKTf8NoMc?enablejsapi=1&amp;playsinline=1&amp;rel=0"
+    src="https://www.youtube.com/embed/72zKTf8NoMc?enablejsapi=1&playsinline=1&rel=0&origin=https://anujydvx0007.github.io"
     allow="autoplay; encrypted-media"
     title="Tum Ko - Rockstar">
   </iframe>
@@ -538,8 +538,18 @@
 const youtubePlayer = document.querySelector('#youtubePlayer');
 
 let musicPlaying = false;
+let youtubeReady = false;
+
+youtubePlayer.addEventListener('load', () => {
+  youtubeReady = true;
+});
 
 musicBtn.addEventListener('click', () => {
+  if (!youtubeReady) {
+    setTimeout(() => musicBtn.click(), 1000);
+    return;
+  }
+
   const command = musicPlaying ? 'pauseVideo' : 'playVideo';
 
   youtubePlayer.contentWindow.postMessage(
@@ -548,6 +558,15 @@ musicBtn.addEventListener('click', () => {
       func: command,
       args: []
     }),
+    '*'
+  );
+
+  musicPlaying = !musicPlaying;
+
+  musicBtn.textContent = musicPlaying
+    ? '⏸ Pause Music'
+    : '🎵 Listen Nainaa';
+});
     '*'
   );
 
