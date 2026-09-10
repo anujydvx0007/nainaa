@@ -398,18 +398,6 @@
               <img src="memory-02.jpg" alt="Another treasured memory with Duggu" />
               <div class="photo-fallback">Your second photo memory belongs here.</div>
               <span class="photo-note">forever looks lovely on you ♥</span>
-            <div class="music-player" aria-label="Music player">
-  <iframe
-    id="youtubePlayer"
-    src="https://www.youtube.com/embed/72zKTf8NoMc?enablejsapi=1&playsinline=1&rel=0"
-    allow="autoplay; encrypted-media"
-    title="Tum Ko - Rockstar">
-  </iframe>
-
-  <button id="musicBtn" class="music-btn" type="button" aria-pressed="false">
-    🎵 Listen Nainaa
-  </button>
-</div>
           </div>
           <div class="memory-copy">
             <span class="memory-number">MEMORY 02</span>
@@ -419,7 +407,6 @@
           </div>
         </div>
       </section>
-
       <section class="slide" aria-label="Birthday surprise" data-slide="3">
         <div class="surprise-card">
           <p class="eyebrow">The final surprise</p>
@@ -451,7 +438,7 @@
   </iframe>
 
   <button id="musicBtn" class="music-btn" type="button" aria-pressed="false">
-    🎵 Play Music
+    🎵 Listen Nainaa
   </button>
 </div>
   <script>
@@ -470,6 +457,27 @@
 ['memory-13.jpeg', 'My hand, your hand, our story.', '“Tumhara haath pakad kar lagta hai jaise life ne mujhe apni best gift de di ho.”', 'always, hand in hand ♥', 'Happy Birthday, meri love—tumhare saath wala har kal meri favourite future hai. ♥']
         ];
       const surpriseSlide = document.querySelector('[aria-label="Birthday surprise"]');
+      const musicBtn = document.querySelector('#musicBtn');
+const youtubePlayer = document.querySelector('#youtubePlayer');
+
+let musicPlaying = false;
+
+musicBtn.addEventListener('click', () => {
+  youtubePlayer.contentWindow.postMessage(
+    JSON.stringify({
+      event: 'command',
+      func: musicPlaying ? 'pauseVideo' : 'playVideo',
+      args: []
+    }),
+    '*'
+  );
+
+  musicPlaying = !musicPlaying;
+
+  musicBtn.textContent = musicPlaying
+    ? '⏸ Pause Music'
+    : '🎵 Listen Nainaa';
+});
       additionalMemories.forEach(([image, title, message, note, birthdayWish], offset) => {
         const number = offset + 3;
         const reverse = number % 2 === 0 ? ' reverse' : '';
@@ -487,20 +495,6 @@
                 <p class="message">${message}</p>
                 <p class="birthday-line">${birthdayWish}</p>
               </div>
-              const musicBtn = document.querySelector('#musicBtn');
-const youtubePlayer = document.querySelector('#youtubePlayer');
-
-let musicPlaying = false;
-
-musicBtn.addEventListener('click', () => {
-  const command = musicPlaying ? 'pauseVideo' : 'playVideo';
-
-  youtubePlayer.contentWindow.postMessage(
-    JSON.stringify({
-      event: 'command',
-      func: command,
-      args: []
-    }),
     '*'
   );
 
@@ -560,20 +554,6 @@ musicBtn.addEventListener('click', () => {
         if (Math.abs(distance) > 55) show(current + (distance < 0 ? 1 : -1));
       }, { passive: true });
       document.querySelectorAll('.photo-frame img').forEach(image => image.addEventListener('error', () => image.closest('.photo-frame').classList.add('missing')));
-      const musicBtn = document.querySelector('#musicBtn');
-const youtubePlayer = document.querySelector('#youtubePlayer');
-
-let musicPlaying = false;
-
-musicBtn.addEventListener('click', () => {
-  const command = musicPlaying ? 'pauseVideo' : 'playVideo';
-
-  youtubePlayer.contentWindow.postMessage(
-    JSON.stringify({
-      event: 'command',
-      func: command,
-      args: []
-    }),
     '*'
   );
 
